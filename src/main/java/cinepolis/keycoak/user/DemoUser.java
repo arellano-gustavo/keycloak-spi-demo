@@ -1,4 +1,4 @@
-package dasniko.keycoak.user;
+package cinepolis.keycoak.user;
 
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko

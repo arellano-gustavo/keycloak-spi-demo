@@ -1,4 +1,4 @@
-package dasniko.keycoak.user;
+package cinepolis.keycoak.user;
 
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.KeycloakSession;

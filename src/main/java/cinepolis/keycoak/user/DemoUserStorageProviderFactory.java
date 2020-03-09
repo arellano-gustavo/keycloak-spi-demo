@@ -1,4 +1,4 @@
-package dasniko.keycoak.user;
+package cinepolis.keycoak.user;
 
 import org.keycloak.component.ComponentModel;
 import org.keycloak.models.KeycloakSession;
@@ -24,13 +24,13 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
 
     @Override
     public String getId() {
-        return "demo-user-provider";
+        return "cinepolis-auth-provider";
     }
 
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
         return ProviderConfigurationBuilder.create()
-                .property("myParam", "My Param", "Some Description", ProviderConfigProperty.STRING_TYPE, "some value", null)
+                .property("customParam", "Custom Param", "Parametro experimental by Goose", ProviderConfigProperty.STRING_TYPE, "algun valor cool", null)
                 .build();
     }
 }

@@ -1,4 +1,4 @@
-package dasniko.keycoak.user;
+package cinepolis.keycoak.user;
 
 import java.util.Arrays;
 import java.util.List;
