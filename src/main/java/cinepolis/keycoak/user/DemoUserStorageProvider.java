@@ -22,9 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * @author Niko Köbler, http://www.n-k.de, @dasniko
- */
 public class DemoUserStorageProvider implements 
         UserStorageProvider,
         UserLookupProvider, 

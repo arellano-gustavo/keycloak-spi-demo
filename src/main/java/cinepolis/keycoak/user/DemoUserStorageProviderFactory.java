@@ -8,9 +8,6 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 import java.util.List;
 
-/**
- * @author Niko Köbler, http://www.n-k.de, @dasniko
- */
 public class DemoUserStorageProviderFactory implements UserStorageProviderFactory<DemoUserStorageProvider> {
 
     @Override

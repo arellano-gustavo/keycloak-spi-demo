@@ -4,34 +4,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Niko Köbler, http://www.n-k.de, @dasniko
- */
 class DemoRepository {
 
-    private List<DemoUser> users;
-
-    DemoRepository() {
-        users = Arrays.asList(
-                new DemoUser("1", "Fred", "Flintstone"),
-                new DemoUser("3", "Wilma", "Flintstone"),
-                new DemoUser("5", "Pebbles", "Flintstone"),
-                new DemoUser("2", "Barney", "Rubble"),
-                new DemoUser("4", "Betty", "Rubble"),
-                new DemoUser("6", "Bam Bam", "Rubble")
-        );
+    private List<DemoUser> users() {
+    	return DatabaseConnector.getUsers();
     }
 
     List<DemoUser> getAllUsers() {
-        return users;
+        return users();
     }
 
     int getUsersCount() {
-        return users.size();
+        return users().size();
     }
 
     DemoUser findUserById(String id) {
-        return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+        return users().stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
     }
 
     private boolean encontrado(DemoUser user, String username) {
@@ -39,7 +27,7 @@ class DemoRepository {
     }
     
     DemoUser findUserByUsernameOrEmail(String username) {
-        DemoUser usr = users.stream()
+        DemoUser usr = users().stream()
                 .filter(user -> encontrado(user, username))
                 .findFirst()
                 .orElse(null);
@@ -57,7 +45,7 @@ class DemoRepository {
     }
 
     List<DemoUser> findUsers(String query) {
-        return users.stream()
+        return users().stream()
                 .filter(user -> user.getUsername().contains(query) || user.getEmail().contains(query))
                 .collect(Collectors.toList());
     }
