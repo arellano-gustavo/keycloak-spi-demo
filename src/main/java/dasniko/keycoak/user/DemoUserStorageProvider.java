@@ -25,8 +25,12 @@ import java.util.stream.Collectors;
 /**
  * @author Niko Köbler, http://www.n-k.de, @dasniko
  */
-public class DemoUserStorageProvider implements UserStorageProvider,
-        UserLookupProvider, UserQueryProvider, CredentialInputUpdater, CredentialInputValidator {
+public class DemoUserStorageProvider implements 
+        UserStorageProvider,
+        UserLookupProvider, 
+        UserQueryProvider, 
+        CredentialInputUpdater, 
+        CredentialInputValidator {
 
     private final KeycloakSession session;
     private final ComponentModel model;
@@ -99,7 +103,8 @@ public class DemoUserStorageProvider implements UserStorageProvider,
 
     @Override
     public UserModel getUserByUsername(String username, RealmModel realm) {
-        return new UserAdapter(session, realm, model, repository.findUserByUsernameOrEmail(username));
+    	DemoUser user = repository.findUserByUsernameOrEmail(username);
+        return new UserAdapter(session, realm, model, user);
     }
 
     @Override
@@ -138,26 +143,34 @@ public class DemoUserStorageProvider implements UserStorageProvider,
 
     @Override
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
-        return null;
+        //return null;
+        return getUsers(realm);
     }
 
     @Override
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm, int firstResult, int maxResults) {
-        return null;
+        //return null;
+        return getUsers(realm);
     }
 
     @Override
     public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group, int firstResult, int maxResults) {
-        return Collections.emptyList();
+        //return Collections.emptyList();
+        return getUsers(realm);
+
     }
 
     @Override
     public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group) {
-        return Collections.emptyList();
+        //return Collections.emptyList();
+        return getUsers(realm);
+
     }
 
     @Override
     public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
-        return null;
+        //return null;
+        return getUsers(realm);
+
     }
 }
