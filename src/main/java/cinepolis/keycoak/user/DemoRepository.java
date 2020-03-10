@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 class DemoRepository {
 
     private List<DemoUser> users() {
-    	return DatabaseConnector.getUsers();
+    	return DatabaseConnector.getInstance().getUsers();
     }
 
     List<DemoUser> getAllUsers() {
