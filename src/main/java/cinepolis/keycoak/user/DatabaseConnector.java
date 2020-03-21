@@ -32,7 +32,7 @@ public class DatabaseConnector {
 
     private DatabaseConnector() {
         try {
-        	Properties properties = new Properties();
+            Properties properties = new Properties();
             InputStream fis = DatabaseConnector.class.getClassLoader().getResourceAsStream("database.properties");
             properties.load(fis);
             
@@ -40,7 +40,7 @@ public class DatabaseConnector {
             for(Object propertyKey : propKeySet) {
                 String propValue = properties.getProperty(propertyKey.toString());
                 if(propValue!=null) {
-                	prn(propertyKey.toString() + ":" + propValue);
+                    prn(propertyKey.toString() + ":" + propValue);
                 }
             }
             
@@ -76,18 +76,16 @@ public class DatabaseConnector {
         try (Connection        con   = dataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY);
             ResultSet         rs    = pstmt.executeQuery();) {
-        	
-            // id, nombre, primer_apellido, segundo_apellido, 		1,2,3,4
-        	// usuario, contrasena, correo, 						5,6,7
-        	// activo, interno, fecha_alta, estatus					8,9,10,11
-        	String id = ""+rs.getInt(1);
-        	String username = rs.getString(5);
-        	String password = rs.getString(6);
-        	String email = rs.getString(7);
-        	String firstName = rs.getString(2);
-        	String lastName = rs.getString(4);
-        	
             while (rs.next()) {
+                // id, nombre, primer_apellido, segundo_apellido,         1,2,3,4
+                // usuario, contrasena, correo,                         5,6,7
+                // activo, interno, fecha_alta, estatus                    8,9,10,11
+                String id = ""+rs.getInt(1);
+                String username = rs.getString(5);
+                String password = rs.getString(6);
+                String email = rs.getString(7);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(4);
                lista.add(new RemoteUser(id, username, password, email, firstName, lastName));
             }
         } catch (SQLException e) {
