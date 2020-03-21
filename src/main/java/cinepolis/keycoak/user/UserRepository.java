@@ -3,33 +3,37 @@ package cinepolis.keycoak.user;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class DemoRepository {
-
-    private List<DemoUser> users() {
-    	return DatabaseConnector.getInstance().getUsers();
+class UserRepository {
+    private RemoteUser defaultUser = new RemoteUser("0", "firstName", "lastName");
+    
+    public UserRepository() {
     }
 
-    List<DemoUser> getAllUsers() {
+    private List<RemoteUser> users() {
+        return DatabaseConnector.getInstance().getAllUsers();
+    }
+
+    public List<RemoteUser> getAllUsers() {
         return users();
     }
 
-    int getUsersCount() {
+    public int getUsersCount() {
         return users().size();
     }
 
-    DemoUser findUserById(String id) {
+    public RemoteUser findUserById(String id) {
         return users().stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
     }
 
-    private boolean encontrado(DemoUser user, String username) {
+    private boolean encontrado(RemoteUser user, String username) {
         return user.getUsername().equalsIgnoreCase(username) || user.getEmail().equalsIgnoreCase(username);
     }
     
-    DemoUser findUserByUsernameOrEmail(String username) {
-        DemoUser usr = users().stream()
+    public RemoteUser findUserByUsernameOrEmail(String username) {
+        RemoteUser usr = users().stream()
                 .filter(user -> encontrado(user, username))
                 .findFirst()
-                .orElse(null);
+                .orElse(defaultUser);
         return usr;
         /** /
         for(DemoUser du : users) {
@@ -43,26 +47,28 @@ class DemoRepository {
         /**/
     }
 
-    List<DemoUser> findUsers(String query) {
+    public List<RemoteUser> findUsers(String query) {
         return users().stream()
                 .filter(user -> user.getUsername().contains(query) || user.getEmail().contains(query))
                 .collect(Collectors.toList());
     }
 
-    boolean validateCredentials(String username, String password) {
-        //System.out.println(username+"************"+password);
-        DemoUser u = findUserByUsernameOrEmail(username);
-        if(u!=null) {
+    public boolean validateCredentials(String username, String password) {
+    	logger_debug("Credentials: ["+username+"] ["+password+"]");
+        RemoteUser u = findUserByUsernameOrEmail(username);
+        if(u!=null && !"0".equals(u.getId())) {
             String pass = u.getPassword();
-            //System.out.println("************"+pass);
+            logger_debug("************>"+pass+"<************");
             return pass.equals(password);
         }
         return false;
     }
 
-    boolean updateCredentials(String username, String password) {
-        findUserByUsernameOrEmail(username).setPassword(password);
-        return true;
+    public boolean updateCredentials(String username, String password) {
+        return DatabaseConnector.getInstance().updateCredentials(username, password);
     }
 
+    private void logger_debug(String msg) {
+    	System.out.println(msg);
+    }
 }

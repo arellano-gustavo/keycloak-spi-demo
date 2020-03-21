@@ -1,6 +1,6 @@
 package cinepolis.keycoak.user;
 
-public class DemoUser {
+public class RemoteUser {
 
     private String id;
     private String username;
@@ -9,10 +9,10 @@ public class DemoUser {
     private String lastName;
     private String password;
 
-    public DemoUser() {
+    public RemoteUser() {
     }
 
-    public DemoUser(String id, String firstName, String lastName) {
+    public RemoteUser(String id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

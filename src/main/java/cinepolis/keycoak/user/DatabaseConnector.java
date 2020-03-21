@@ -1,54 +1,89 @@
 package cinepolis.keycoak.user;
 
+import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DatabaseConnector {
-    //private static final String JDBC_DRIVER = "org.h2.Driver";
-    private static final String JDBC_URL = "jdbc:h2:tcp://database.ci.ultrasist.net:1521/h2-data";
-    private static final String JDBC_USER = "sa";
-    private static final String JDBC_PASSWORD = "gustavo";
-    private static final String JDBC_QUERY = "select * from users where id>217";
+    private static final String DB_USERNAME="db.username";
+    private static final String DB_PASSWORD="db.password";
+    private static final String DB_URL ="db.url";
+    private static final String DB_DRIVER_CLASS="driver.class.name";
     
+    private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
+    private static final String JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM cinepolis.usuario";
+    private static final String SQL_UPDATE = "UPDATE cinepolis.usuario SET contrasena=? WHERE username=?";
+
     private static DatabaseConnector instance = null;
-    private PreparedStatement pstmt = null;
-    
+
     public static DatabaseConnector getInstance() {
         if(instance==null) {
             instance = new DatabaseConnector();
         }
         return instance;
     }
-    
+
     private DatabaseConnector() {
         try {
-            Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);
-            this.pstmt = con.prepareStatement(JDBC_QUERY);
-        } catch(SQLException e) {
-            prn(e.toString());
+        	Properties properties = new Properties();
+            InputStream fis = DatabaseConnector.class.getClassLoader().getResourceAsStream("database.properties");
+            properties.load(fis);
+            
+            Set<Object> propKeySet = properties.keySet();
+            for(Object propertyKey : propKeySet) {
+                String propValue = properties.getProperty(propertyKey.toString());
+                if(propValue!=null) {
+                	prn(propertyKey.toString() + ":" + propValue);
+                }
+            }
+            
+            dataSource.setDriverClass(properties.getProperty(DB_DRIVER_CLASS));
+            dataSource.setJdbcUrl(properties.getProperty(DB_URL));
+            dataSource.setUser(properties.getProperty(DB_USERNAME));
+            dataSource.setPassword(properties.getProperty(DB_PASSWORD));
+            
+            dataSource.setMinPoolSize(3);
+            dataSource.setMaxPoolSize(24);
+            dataSource.setAcquireIncrement(4);
+            
+        } catch (IOException | PropertyVetoException e) {
+            prn(e.getMessage());
         }
     }
-
-    public List<DemoUser> getUsers() {
-        List<DemoUser> lista = new ArrayList<>();
-        ResultSet rs = null;
-        try {
-            rs = this.pstmt.executeQuery();
+    public boolean updateCredentials(String username, String password) {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(SQL_UPDATE);
+            ) {
+                pstmt.setString(1, password);
+                pstmt.setString(2, username);
+                pstmt.execute();
+                return true;
+            } catch (SQLException e) {
+                prn(e.toString());
+                return false;
+            }
+    }
+    public List<RemoteUser> getAllUsers() {
+        List<RemoteUser> lista = new ArrayList<>();
+        try (Connection        con   = dataSource.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY);
+            ResultSet         rs    = pstmt.executeQuery();) {
+            // id, nombre, primer_apellido, segundo_apellido, usuario, 
+        	// contrasena, correo, activo, interno, fecha_alta, estatus
             while (rs.next()) {
-                lista.add(  new DemoUser(""+rs.getInt(1), rs.getString(2), rs.getString(3))  );
+               lista.add(  new RemoteUser(""+rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
         } catch (SQLException e) {
             prn(e.toString());
-        } finally {
-            try {
-                if(rs!=null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                prn(e.toString());
-            }
-        }
+        } 
         return lista;
     }
     

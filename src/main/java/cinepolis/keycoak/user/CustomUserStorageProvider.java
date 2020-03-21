@@ -10,6 +10,7 @@ import org.keycloak.models.RealmModel;
 import org.keycloak.models.RoleModel;
 import org.keycloak.models.UserCredentialModel;
 import org.keycloak.models.UserModel;
+
 import org.keycloak.models.credential.PasswordCredentialModel;
 import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
@@ -22,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class DemoUserStorageProvider implements 
+public class CustomUserStorageProvider implements 
         UserStorageProvider,
         UserLookupProvider, 
         UserQueryProvider, 
@@ -31,9 +32,9 @@ public class DemoUserStorageProvider implements
 
     private final KeycloakSession session;
     private final ComponentModel model;
-    private final DemoRepository repository;
+    private final UserRepository repository;
 
-    public DemoUserStorageProvider(KeycloakSession session, ComponentModel model, DemoRepository repository) {
+    public CustomUserStorageProvider(KeycloakSession session, ComponentModel model, UserRepository repository) {
         this.session = session;
         this.model = model;
         this.repository = repository;
@@ -100,7 +101,7 @@ public class DemoUserStorageProvider implements
 
     @Override
     public UserModel getUserByUsername(String username, RealmModel realm) {
-    	DemoUser user = repository.findUserByUsernameOrEmail(username);
+    	RemoteUser user = repository.findUserByUsernameOrEmail(username);
         return new UserAdapter(session, realm, model, user);
     }
 

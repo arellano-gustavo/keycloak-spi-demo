@@ -8,15 +8,15 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 import java.util.List;
 
-public class DemoUserStorageProviderFactory implements UserStorageProviderFactory<DemoUserStorageProvider> {
+public class DemoUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
 
     @Override
-    public DemoUserStorageProvider create(KeycloakSession session, ComponentModel model) {
+    public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
         // here you can setup the user storage provider, initiate some connections, etc.
 
-        DemoRepository repository = new DemoRepository();
+        UserRepository repository = new UserRepository();
 
-        return new DemoUserStorageProvider(session, model, repository);
+        return new CustomUserStorageProvider(session, model, repository);
     }
 
     @Override

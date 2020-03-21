@@ -8,10 +8,10 @@ import org.keycloak.storage.adapter.AbstractUserAdapterFederatedStorage;
 
 public class UserAdapter extends AbstractUserAdapterFederatedStorage {
 
-    private final DemoUser user;
+    private final RemoteUser user;
     private final String keycloakId;
 
-    public UserAdapter(KeycloakSession session, RealmModel realm, ComponentModel model, DemoUser user) {
+    public UserAdapter(KeycloakSession session, RealmModel realm, ComponentModel model, RemoteUser user) {
         super(session, realm, model);
         this.user = user;
         this.keycloakId = StorageId.keycloakId(model, user.getId());
