@@ -12,13 +12,13 @@ public class RemoteUser {
     public RemoteUser() {
     }
 
-    public RemoteUser(String id, String firstName, String lastName) {
+    public RemoteUser(String id, String username, String password, String email, String firstName, String lastName) {
         this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = (firstName + "." + lastName).toLowerCase();
-        this.email = this.username + "@flintstones.com";
-        this.password = firstName.toLowerCase();
     }
 
     public String getId() {

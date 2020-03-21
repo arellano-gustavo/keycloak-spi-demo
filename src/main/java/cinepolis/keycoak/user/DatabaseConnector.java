@@ -76,10 +76,19 @@ public class DatabaseConnector {
         try (Connection        con   = dataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY);
             ResultSet         rs    = pstmt.executeQuery();) {
-            // id, nombre, primer_apellido, segundo_apellido, usuario, 
-        	// contrasena, correo, activo, interno, fecha_alta, estatus
+        	
+            // id, nombre, primer_apellido, segundo_apellido, 		1,2,3,4
+        	// usuario, contrasena, correo, 						5,6,7
+        	// activo, interno, fecha_alta, estatus					8,9,10,11
+        	String id = ""+rs.getInt(1);
+        	String username = rs.getString(5);
+        	String password = rs.getString(6);
+        	String email = rs.getString(7);
+        	String firstName = rs.getString(2);
+        	String lastName = rs.getString(4);
+        	
             while (rs.next()) {
-               lista.add(  new RemoteUser(""+rs.getInt(1), rs.getString(2), rs.getString(3)));
+               lista.add(new RemoteUser(id, username, password, email, firstName, lastName));
             }
         } catch (SQLException e) {
             prn(e.toString());
