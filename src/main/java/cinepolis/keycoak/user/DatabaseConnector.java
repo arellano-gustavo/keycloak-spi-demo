@@ -53,6 +53,8 @@ public class DatabaseConnector {
             dataSource.setMaxPoolSize(24);
             dataSource.setAcquireIncrement(4);
             
+            //https://github.com/metabase/metabase/issues/10063
+            dataSource.setMaxIdleTime(60); // 1 minute
         } catch (IOException | PropertyVetoException e) {
             prn(e.getMessage());
         }
