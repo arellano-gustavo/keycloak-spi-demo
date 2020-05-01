@@ -27,7 +27,21 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
         return ProviderConfigurationBuilder.create()
-                .property("customParam", "Custom Param", "Parametro experimental by Goose", ProviderConfigProperty.STRING_TYPE, "algun valor cool", null)
+                .property(
+                    "customParam1", 
+                    "Custom Param 1", 
+                    "Parametro experimental by Goose 1", 
+                    ProviderConfigProperty.STRING_TYPE, 
+                    "algun valor cool 1", 
+                    null
+                )
+                .property(
+                    "customParam2", 
+                    "Custom Param 2", 
+                    "Parametro experimental by Goose 2", 
+                    ProviderConfigProperty.STRING_TYPE, 
+                    "algun valor cool 2", 
+                    null)
                 .build();
     }
 }

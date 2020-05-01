@@ -69,12 +69,12 @@ public class CustomUserStorageProvider implements
     }
 
     @Override
-    public void disableCredentialType(RealmModel realm, UserModel user, String credentialType) {
+    public Set<String> getDisableableCredentialTypes(RealmModel realm, UserModel user) {
+        return Collections.emptySet();
     }
 
     @Override
-    public Set<String> getDisableableCredentialTypes(RealmModel realm, UserModel user) {
-        return Collections.emptySet();
+    public void disableCredentialType(RealmModel realm, UserModel user, String credentialType) {
     }
 
     @Override
@@ -141,34 +141,27 @@ public class CustomUserStorageProvider implements
 
     @Override
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm) {
-        //return null;
         return getUsers(realm);
     }
 
     @Override
     public List<UserModel> searchForUser(Map<String, String> params, RealmModel realm, int firstResult, int maxResults) {
-        //return null;
         return getUsers(realm);
     }
 
     @Override
     public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group, int firstResult, int maxResults) {
-        //return Collections.emptyList();
         return getUsers(realm);
 
     }
 
     @Override
     public List<UserModel> getGroupMembers(RealmModel realm, GroupModel group) {
-        //return Collections.emptyList();
         return getUsers(realm);
-
     }
 
     @Override
     public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
-        //return null;
         return getUsers(realm);
-
     }
 }
