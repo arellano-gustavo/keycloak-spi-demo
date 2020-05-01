@@ -55,6 +55,7 @@ public class DatabaseConnector {
             
             //https://github.com/metabase/metabase/issues/10063
             dataSource.setMaxIdleTime(600); // 10 minute
+            dataSource.setIdleConnectionTestPeriod(300);
         } catch (IOException | PropertyVetoException e) {
             prn(e.getMessage());
         }
