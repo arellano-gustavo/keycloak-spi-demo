@@ -21,7 +21,7 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
 
     @Override
     public String getId() {
-        return "microcreditos-auth-provider";
+        return "siem-auth-provider";
     }
 
     @Override
