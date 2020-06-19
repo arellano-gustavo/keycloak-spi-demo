@@ -54,11 +54,11 @@ class UserRepository {
     }
 
     public boolean validateCredentials(String username, String password) {
-    	logger_debug("Credentials: ["+username+"] ["+password+"]");
+        ManageProperties.prn("Credentials: ["+username+"] ["+password+"]");
         RemoteUser u = findUserByUsernameOrEmail(username);
         if(u!=null && !"0".equals(u.getId())) {
             String pass = u.getPassword();
-            logger_debug("************>"+pass+"<************");
+            ManageProperties.prn("************>"+pass+"<************");
             return pass.equals(password);
         }
         return false;
@@ -68,7 +68,4 @@ class UserRepository {
         return DatabaseConnector.getInstance().updateCredentials(username, password);
     }
 
-    private void logger_debug(String msg) {
-    	System.out.println(msg);
-    }
 }

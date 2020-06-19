@@ -12,16 +12,14 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
 
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
-        // here you can setup the user storage provider, initiate some connections, etc.
-
+        // here we can setup the user storage provider, initiate some connections, etc.
         UserRepository repository = new UserRepository();
-
         return new CustomUserStorageProvider(session, model, repository);
     }
 
     @Override
     public String getId() {
-        return "microcreditos-auth-provider";
+        return ManageProperties.getInstance().getStrPropertyValue("provider.name");
     }
 
     @Override
@@ -41,7 +39,8 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
                     "Parametro experimental by Goose 2", 
                     ProviderConfigProperty.STRING_TYPE, 
                     "algun valor cool 2", 
-                    null)
+                    null
+                )
                 .build();
     }
 }
