@@ -21,7 +21,7 @@ public class DemoUserStorageProviderFactory implements UserStorageProviderFactor
 
     @Override
     public String getId() {
-        return "cinepolis-auth-provider";
+        return "siem-auth-provider";
     }
 
     @Override
