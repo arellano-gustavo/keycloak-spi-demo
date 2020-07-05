@@ -39,6 +39,16 @@ public class DatabaseConnector {
         }
         return instance;
     }
+    public static DatabaseConnector getInstance(String jdbcurl, String driverClass) {
+        if(instance==null) {
+            try {
+                instance = new DatabaseConnector(jdbcurl, driverClass);
+            } catch (PropertyVetoException e) {
+                ManageProperties.prn("Retornando un DatabaseConnector nulo. Razon: "+e.getMessage());
+            }
+        }
+        return instance;
+    }
 
     private DatabaseConnector() throws PropertyVetoException {
         dataSource.setDriverClass(mp.getStrPropertyValue(DB_DRIVER_CLASS));
@@ -54,7 +64,11 @@ public class DatabaseConnector {
         dataSource.setMaxIdleTime(mp.getIntPropertyValue(C3P0_MAX_IDDLE_TIME, 600)); // 10 minutos
         dataSource.setIdleConnectionTestPeriod(mp.getIntPropertyValue(C3P0_IDLE_CONNECTION_TEST_PERIOD, 300)); // 5 minutos
     }
-
+    private DatabaseConnector(String jdbcurl, String driverClass) throws PropertyVetoException {
+        this();
+        dataSource.setDriverClass(driverClass);
+        dataSource.setJdbcUrl(jdbcurl);
+    }
 
     public boolean updateCredentials(String username, String password) {
         try (
