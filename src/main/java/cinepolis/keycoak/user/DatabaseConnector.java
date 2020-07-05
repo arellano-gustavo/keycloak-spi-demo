@@ -41,6 +41,7 @@ public class DatabaseConnector {
     }
 
     private DatabaseConnector() throws PropertyVetoException {
+        ManageProperties.prn("Seteando propiedades de conección...");
         dataSource.setDriverClass(mp.getStrPropertyValue(DB_DRIVER_CLASS));
         dataSource.setJdbcUrl(mp.getStrPropertyValue(DB_URL));
         dataSource.setUser(mp.getStrPropertyValue(DB_USERNAME));
