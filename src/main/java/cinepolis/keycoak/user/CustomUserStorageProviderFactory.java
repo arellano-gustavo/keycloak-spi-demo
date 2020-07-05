@@ -14,9 +14,9 @@ public class CustomUserStorageProviderFactory implements
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
         // here we can setup the user storage provider, initiate some connections, etc.
-        List<ProviderConfigProperty> props = getConfigProperties();
-        prn(props.get(0).getLabel());
-        prn(props.get(1).getLabel());
+        //List<ProviderConfigProperty> props = getConfigProperties();
+        //prn(props.get(0).getLabel());
+        //prn(props.get(1).getLabel());
         DatabaseConnector dbc = DatabaseConnector.getInstance();
         UserRepository repository = new UserRepository(dbc);
         return new CustomUserStorageProvider(session, model, repository);
