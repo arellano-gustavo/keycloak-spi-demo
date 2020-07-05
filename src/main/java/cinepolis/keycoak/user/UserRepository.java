@@ -12,7 +12,7 @@ class UserRepository {
     }
 
     private List<RemoteUser> users() {
-        return dbc.getAllUsers();
+        return this.dbc.getAllUsers();
     }
 
     public List<RemoteUser> getAllUsers() {
