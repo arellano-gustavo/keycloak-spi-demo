@@ -23,7 +23,7 @@ public class DatabaseConnector {
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
     private static final String JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
-    private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
+    private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE usuario=?";
 
     private static DatabaseConnector instance = null;
     private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
