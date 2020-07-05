@@ -8,7 +8,7 @@ class UserRepository {
     private DatabaseConnector dbc;
     
     public UserRepository(DatabaseConnector dbc) {
-        //this.dbc =  DatabaseConnector.getInstance();
+        this.dbc =  dbc;
     }
 
     private List<RemoteUser> users() {
