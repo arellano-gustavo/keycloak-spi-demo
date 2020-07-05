@@ -8,16 +8,11 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 import java.util.List;
 
-public class CustomUserStorageProviderFactory implements 
-        UserStorageProviderFactory<CustomUserStorageProvider> {
+public class DemoUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
 
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
         // here we can setup the user storage provider, initiate some connections, etc.
-        //List<ProviderConfigProperty> props = getConfigProperties();
-        //prn(props.get(0).getLabel());
-        //prn(props.get(1).getLabel());
-        //DatabaseConnector dbc = DatabaseConnector.getInstance();
         UserRepository repository = new UserRepository();
         return new CustomUserStorageProvider(session, model, repository);
     }
@@ -47,8 +42,5 @@ public class CustomUserStorageProviderFactory implements
                     null
                 )
                 .build();
-    }
-    private static void prn(String s) {
-        System.out.println(s);
     }
 }

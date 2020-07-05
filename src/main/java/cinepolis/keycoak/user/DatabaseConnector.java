@@ -23,7 +23,7 @@ public class DatabaseConnector {
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
     private static final String JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
-    private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE usuario=?";
+    private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
 
     private static DatabaseConnector instance = null;
     private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -33,16 +33,6 @@ public class DatabaseConnector {
         if(instance==null) {
             try {
                 instance = new DatabaseConnector();
-            } catch (PropertyVetoException e) {
-                ManageProperties.prn("Retornando un DatabaseConnector nulo. Razon: "+e.getMessage());
-            }
-        }
-        return instance;
-    }
-    public static DatabaseConnector getInstance(String jdbcurl, String driverClass) {
-        if(instance==null) {
-            try {
-                instance = new DatabaseConnector(jdbcurl, driverClass);
             } catch (PropertyVetoException e) {
                 ManageProperties.prn("Retornando un DatabaseConnector nulo. Razon: "+e.getMessage());
             }
@@ -64,11 +54,7 @@ public class DatabaseConnector {
         dataSource.setMaxIdleTime(mp.getIntPropertyValue(C3P0_MAX_IDDLE_TIME, 600)); // 10 minutos
         dataSource.setIdleConnectionTestPeriod(mp.getIntPropertyValue(C3P0_IDLE_CONNECTION_TEST_PERIOD, 300)); // 5 minutos
     }
-    private DatabaseConnector(String jdbcurl, String driverClass) throws PropertyVetoException {
-        this();
-        dataSource.setDriverClass(driverClass);
-        dataSource.setJdbcUrl(jdbcurl);
-    }
+
 
     public boolean updateCredentials(String username, String password) {
         try (
