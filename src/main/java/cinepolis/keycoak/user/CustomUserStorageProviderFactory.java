@@ -14,6 +14,12 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
         // here we can setup the user storage provider, initiate some connections, etc.
+        List<ProviderConfigProperty> props = getConfigProperties();
+        if(props!=null) {
+            for(int i=0;i<3;i++) {
+                ManageProperties.prn("*****>"+props.get(i).getDefaultValue());
+            }
+        }
         DatabaseConnector dbc = DatabaseConnector.getInstance();
         UserRepository repository = new UserRepository(dbc);
         return new CustomUserStorageProvider(session, model, repository);
@@ -21,7 +27,7 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
 
     @Override
     public String getId() {
-        return ManageProperties.getInstance().getStrPropertyValue("provider.name");
+        return mp.getStrPropertyValue("provider.name");
     }
 
     @Override
@@ -42,6 +48,14 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
                     ProviderConfigProperty.STRING_TYPE, 
                     mp.getStrPropertyValue(DatabaseConnector.DB_DRIVER_CLASS), 
                     null
+                )
+                .property(
+                        "dbUser", 
+                        "Usuario", 
+                        "Usuario de conección a la base", 
+                        ProviderConfigProperty.STRING_TYPE, 
+                        mp.getStrPropertyValue(DatabaseConnector.DB_USERNAME), 
+                        null
                 )
                 .build();
     }
