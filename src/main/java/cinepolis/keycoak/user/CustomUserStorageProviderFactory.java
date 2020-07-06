@@ -20,6 +20,7 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
                 ManageProperties.prn("*****>"+props.get(i).getDefaultValue());
             }
         }
+        ManageProperties.prn("EJEMPLITO *****************>"+System.getenv("EJEMPLITO"));
         DatabaseConnector dbc = DatabaseConnector.getInstance();
         UserRepository repository = new UserRepository(dbc);
         return new CustomUserStorageProvider(session, model, repository);

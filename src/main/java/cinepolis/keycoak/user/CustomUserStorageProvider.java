@@ -101,7 +101,7 @@ public class CustomUserStorageProvider implements
 
     @Override
     public UserModel getUserByUsername(String username, RealmModel realm) {
-    	RemoteUser user = repository.findUserByUsernameOrEmail(username);
+        RemoteUser user = repository.findUserByUsernameOrEmail(username);
         return new UserAdapter(session, realm, model, user);
     }
 
