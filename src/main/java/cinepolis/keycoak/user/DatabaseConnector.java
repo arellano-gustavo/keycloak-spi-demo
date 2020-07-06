@@ -50,7 +50,7 @@ public class DatabaseConnector {
         }
         return instance;
     }
-
+    
     private DatabaseConnector() throws PropertyVetoException {
         dataSource.setDriverClass(mp.getStrPropertyValue(DB_DRIVER_CLASS));
         dataSource.setJdbcUrl(mp.getStrPropertyValue(DB_URL));

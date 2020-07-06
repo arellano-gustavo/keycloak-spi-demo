@@ -36,11 +36,16 @@ public class ManageProperties {
             prn(e.getMessage());
         }
     }
-
-    public String getStrPropertyValue(String key) {
-        String value = properties.getProperty(key);
-        prn("Obteniendo valor para propiedad ["+key+"]. Resultado: [" + value + "]");
-        return value;
+    
+    public String getStrPropertyValue(String name) {
+        String var = System.getenv(name);
+        if(var!=null) {
+            ManageProperties.prn("Usando variable de ambiente "+name+" con valor:"+var);
+            return var;
+        }
+        var = properties.getProperty(name);
+        ManageProperties.prn("Usando parametro de propiedades "+name+" con valor:"+var);
+        return var;
     }
 
     public int getIntPropertyValue(String key, int defaultValue) {

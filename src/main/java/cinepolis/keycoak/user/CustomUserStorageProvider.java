@@ -35,7 +35,6 @@ public class CustomUserStorageProvider implements
     private final UserRepository repository;
 
     public CustomUserStorageProvider(KeycloakSession session, ComponentModel model, UserRepository repository) {
-        ManageProperties.prn("-------------------------> 004");
         this.session = session;
         this.model = model;
         this.repository = repository;
