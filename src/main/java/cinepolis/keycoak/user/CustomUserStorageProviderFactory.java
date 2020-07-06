@@ -13,6 +13,7 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
 
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
+        ManageProperties.prn("-------------------------> 003");
         // here we can setup the user storage provider, initiate some connections, etc.
         List<ProviderConfigProperty> props = getConfigProperties();
         if(props!=null) {
@@ -28,11 +29,13 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
 
     @Override
     public String getId() {
+        ManageProperties.prn("-------------------------> 001");
         return mp.getStrPropertyValue("provider.name");
     }
 
     @Override
     public List<ProviderConfigProperty> getConfigProperties() {
+        ManageProperties.prn("-------------------------> 002");
         return ProviderConfigurationBuilder.create()
                 .property(
                     "jdbcUrl", 
