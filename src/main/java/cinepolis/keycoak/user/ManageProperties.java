@@ -39,7 +39,7 @@ public class ManageProperties {
 
     public String getStrPropertyValue(String key) {
         String value = properties.getProperty(key);
-        prn("Obteniendo valor para propiedad ["+key+"]. Resultado: [" + value + "]");
+        prn("Obetniendo valor para propiedad ["+key+"]. Resultado: [" + value + "]");
         return value;
     }
 

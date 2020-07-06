@@ -8,23 +8,18 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 import java.util.List;
 
-public class CustomUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
-    private ManageProperties mp = ManageProperties.getInstance();
-    
+public class DemoUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
+
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
         // here we can setup the user storage provider, initiate some connections, etc.
-        List<ProviderConfigProperty> props = getConfigProperties();
-        mp.getStrPropertyValue("*************************>" + props.get(0).getLabel());
-        DatabaseConnector dbc = DatabaseConnector.getInstance();
-        UserRepository repository = new UserRepository(dbc);
-        ManageProperties.prn("Plugin connected !!!");
+        UserRepository repository = new UserRepository();
         return new CustomUserStorageProvider(session, model, repository);
     }
 
     @Override
     public String getId() {
-        return mp.getStrPropertyValue("provider.name");
+        return ManageProperties.getInstance().getStrPropertyValue("provider.name");
     }
 
     @Override
