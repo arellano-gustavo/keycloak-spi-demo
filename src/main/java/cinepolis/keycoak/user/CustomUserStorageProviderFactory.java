@@ -24,6 +24,8 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
 
     @Override
     public String getId() {
+        List<ProviderConfigProperty> props = getConfigProperties();
+        ManageProperties.prn("*************************>" + props.get(0).getLabel());
         return mp.getStrPropertyValue("provider.name");
     }
 
