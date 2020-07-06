@@ -8,7 +8,7 @@ import org.keycloak.storage.UserStorageProviderFactory;
 
 import java.util.List;
 
-public class CustomUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
+public class DemoUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
 
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
