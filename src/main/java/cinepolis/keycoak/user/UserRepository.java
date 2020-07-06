@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 class UserRepository {
     private RemoteUser defaultUser = new RemoteUser("0", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
-    private DatabaseConnector dbc = DatabaseConnector.getInstance();
-    public UserRepository() {
-        //this.dbc = dbc;
+    private DatabaseConnector dbc;
+    public UserRepository(DatabaseConnector dbc) {
+        this.dbc = dbc;
     }
 
     private List<RemoteUser> users() {
