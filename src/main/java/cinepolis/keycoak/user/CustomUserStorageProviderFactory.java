@@ -9,12 +9,11 @@ import org.keycloak.storage.UserStorageProviderFactory;
 import java.util.List;
 
 public class CustomUserStorageProviderFactory implements UserStorageProviderFactory<CustomUserStorageProvider> {
+    private ManageProperties mp = ManageProperties.getInstance();
 
     @Override
     public CustomUserStorageProvider create(KeycloakSession session, ComponentModel model) {
         // here we can setup the user storage provider, initiate some connections, etc.
-        List<ProviderConfigProperty> props = getConfigProperties();
-        ManageProperties.prn("*********************>"+props.get(0).getLabel());
         DatabaseConnector dbc = DatabaseConnector.getInstance();
         UserRepository repository = new UserRepository(dbc);
         return new CustomUserStorageProvider(session, model, repository);
@@ -22,9 +21,6 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
 
     @Override
     public String getId() {
-        List<ProviderConfigProperty> props = getConfigProperties();
-        ManageProperties.getInstance().getStrPropertyValue("*********************>"+props.get(0).getLabel());
-
         return ManageProperties.getInstance().getStrPropertyValue("provider.name");
     }
 
@@ -32,19 +28,19 @@ public class CustomUserStorageProviderFactory implements UserStorageProviderFact
     public List<ProviderConfigProperty> getConfigProperties() {
         return ProviderConfigurationBuilder.create()
                 .property(
-                    "customParam1", 
-                    "Custom Param 1", 
-                    "Parametro experimental by Goose 1", 
+                    "jdbcUrl", 
+                    "Jdbc URL", 
+                    "Cadena de conección a la base de datos", 
                     ProviderConfigProperty.STRING_TYPE, 
-                    "algun valor cool 1", 
+                    mp.getStrPropertyValue(DatabaseConnector.DB_URL), 
                     null
                 )
                 .property(
-                    "customParam2", 
-                    "Custom Param 2", 
-                    "Parametro experimental by Goose 2", 
+                    "driverJdbc", 
+                    "Driver Jdbc", 
+                    "Nombre del driver de conección", 
                     ProviderConfigProperty.STRING_TYPE, 
-                    "algun valor cool 2", 
+                    mp.getStrPropertyValue(DatabaseConnector.DB_DRIVER_CLASS), 
                     null
                 )
                 .build();

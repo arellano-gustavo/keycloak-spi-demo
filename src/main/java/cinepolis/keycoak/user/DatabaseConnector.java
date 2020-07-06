@@ -11,10 +11,10 @@ import java.util.List;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DatabaseConnector {
-    private static final String DB_USERNAME     = "db.username";
-    private static final String DB_PASSWORD     = "db.password";
-    private static final String DB_URL          = "db.url";
-    private static final String DB_DRIVER_CLASS = "driver.class.name";
+    public static final String DB_USERNAME     = "db.username";
+    public static final String DB_PASSWORD     = "db.password";
+    public static final String DB_URL          = "db.url";
+    public static final String DB_DRIVER_CLASS = "driver.class.name";
     
     private static final String C3P0_MIN_POOL_SIZE     = "c3p0.minPoolSize";
     private static final String C3P0_MAX_POOL_SIZE     = "c3p0.maxPoolSize";
