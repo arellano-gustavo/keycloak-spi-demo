@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class UserRepository {
-    private RemoteUser defaultUser = new RemoteUser("0", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
+    private RemoteUser defaultUser = new RemoteUser("1000", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
     private DatabaseConnector dbc;
 
     public UserRepository(DatabaseConnector dbc) {
@@ -68,6 +68,14 @@ class UserRepository {
 
     public boolean updateCredentials(String username, String password) {
         return dbc.updateCredentials(username, password);
+    }
+
+    public void deleteUser(RemoteUser u) {
+        dbc.deleteUser(u.getEmail());
+    }
+
+    public RemoteUser createUser(RemoteUser user) {
+        return dbc.addUser(user);
     }
 
 }

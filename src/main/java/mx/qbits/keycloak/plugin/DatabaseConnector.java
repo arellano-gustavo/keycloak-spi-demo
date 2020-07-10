@@ -24,6 +24,8 @@ public class DatabaseConnector {
     
     private static final String JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
     private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
+    private static final String SQL_DELETE = "DELETE FROM usuario WHERE correo=?";
+    private static final String SQL_INSERT = "insert into usuario(nombre, primer_apellido, usuario, contrasena, correo) values(?,?,?,?,?)";
 
     private static DatabaseConnector instance = null;
     private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -110,5 +112,35 @@ public class DatabaseConnector {
             ManageProperties.prn(e.toString());
         }
         return lista;
+    }
+
+    public void deleteUser(String email) {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(SQL_DELETE);
+            ) {
+                pstmt.setString(1, email);
+                pstmt.execute();
+            } catch (SQLException e) {
+                ManageProperties.prn(e.toString());
+            }
+    }
+
+    public RemoteUser addUser(RemoteUser user) {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(SQL_INSERT);
+            ) {
+                pstmt.setString(1, user.getFirstName()); // nombre
+                pstmt.setString(2, user.getLastName());  // primer_apellido
+                pstmt.setString(3, user.getUsername());  // usuario
+                pstmt.setString(4, user.getPassword());  // contrasena
+                pstmt.setString(5, user.getEmail());     // correo
+                pstmt.execute();
+                return user;
+            } catch (SQLException e) {
+                ManageProperties.prn(e.toString());
+                return null;
+            }
     }
 }
