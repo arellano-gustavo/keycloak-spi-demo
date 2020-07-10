@@ -45,8 +45,8 @@ class UserRepository {
             }
         }
         System.out.println("No se encontro al usuario: " + username);
-        //RemoteUser defaultUser = null;//new RemoteUser("1000", "NA", "p455W0rd*_!", "", "fName", "lName");
-        return null;
+        //return new RemoteUser("1000", "NA", "p455W0rd*_!", "goose@tripas.net", "fName", "lName");
+        return new RemoteUser("1000", username, "p455W0rd*_!", username, "fName", "lName");
         /**/
     }
 
