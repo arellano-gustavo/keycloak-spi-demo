@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class UserRepository {
-    //private RemoteUser defaultUser = null;//new RemoteUser("1000", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
+    //private RemoteUser defaultUser = null;//new RemoteUser("1000", "NA", "p455W0rd*_!", "", "fName", "lName");
     private DatabaseConnector dbc;
 
     public UserRepository(DatabaseConnector dbc) {
@@ -32,20 +32,21 @@ class UserRepository {
     }
     
     public RemoteUser findUserByUsernameOrEmail(String username) {
+        /** /
         RemoteUser usr = users().stream()
                 .filter(user -> encontrado(user, username))
                 .findFirst()
                 .orElse(null);
         return usr;
-        /** /
-        for(DemoUser du : users) {
+        /**/
+        for(RemoteUser du : users()) {
             if(du.getUsername().equals(username) || du.getEmail().equalsIgnoreCase(username)) {
                 System.out.println("usuario "+username+" encontrado !!!!");
                 return du;
             }
         }
         System.out.println("No se encontro al usuario: " + username);
-        return null;
+        return new RemoteUser("", username, "", username, "", "");
         /**/
     }
 
