@@ -16,6 +16,7 @@ import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.user.UserLookupProvider;
 import org.keycloak.storage.user.UserQueryProvider;
+import org.keycloak.storage.user.UserRegistrationProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +25,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CustomUserStorageProvider implements 
-        UserStorageProvider,
+        UserStorageProvider, 
+        UserRegistrationProvider,
         UserLookupProvider, 
         UserQueryProvider, 
         CredentialInputUpdater, 
@@ -163,5 +165,25 @@ public class CustomUserStorageProvider implements
     @Override
     public List<UserModel> searchForUserByUserAttribute(String attrName, String attrValue, RealmModel realm) {
         return getUsers(realm);
+    }
+
+    @Override
+    public UserModel addUser(RealmModel realm, String username) {
+        ManageProperties.prn("Agregando: " + username + " realm.algo:");
+        RemoteUser user = new RemoteUser();
+        user.setUsername(username);
+        user = repository.createUser(user);
+        return new UserAdapter(session, realm, model, user);
+    }
+
+    @Override
+    public boolean removeUser(RealmModel realm, UserModel user) {
+        RemoteUser u = repository.findUserById(StorageId.externalId(user.getId()));
+        if(u == null) {
+            ManageProperties.prn("Tried to delete invalid user with ID " + user.getId());
+            return false;
+        }
+        repository.deleteUser(u);
+        return true;
     }
 }
