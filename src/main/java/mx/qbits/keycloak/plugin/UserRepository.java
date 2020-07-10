@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class UserRepository {
-    private RemoteUser defaultUser = null;//new RemoteUser("1000", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
+    //private RemoteUser defaultUser = null;//new RemoteUser("1000", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
     private DatabaseConnector dbc;
 
     public UserRepository(DatabaseConnector dbc) {
@@ -35,7 +35,7 @@ class UserRepository {
         RemoteUser usr = users().stream()
                 .filter(user -> encontrado(user, username))
                 .findFirst()
-                .orElse(defaultUser);
+                .orElse(null);
         return usr;
         /** /
         for(DemoUser du : users) {
