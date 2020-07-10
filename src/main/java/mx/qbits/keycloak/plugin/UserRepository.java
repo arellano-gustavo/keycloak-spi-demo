@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class UserRepository {
-    private RemoteUser defaultUser = new RemoteUser("1000", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
+    private RemoteUser defaultUser = null;//new RemoteUser("1000", "NA", "p455W0rd*_!", "gus@aol.com", "fName", "lName");
     private DatabaseConnector dbc;
 
     public UserRepository(DatabaseConnector dbc) {
