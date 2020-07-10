@@ -1,4 +1,4 @@
-package cinepolis.keycoak.user;
+package mx.qbits.keycloak.plugin;
 
 import org.keycloak.component.ComponentModel;
 import org.keycloak.credential.CredentialInput;

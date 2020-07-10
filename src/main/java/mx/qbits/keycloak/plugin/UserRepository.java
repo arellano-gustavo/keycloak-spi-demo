@@ -1,4 +1,4 @@
-package cinepolis.keycoak.user;
+package mx.qbits.keycloak.plugin;
 
 import java.util.List;
 import java.util.stream.Collectors;
