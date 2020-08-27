@@ -22,9 +22,10 @@ public class DatabaseConnector {
     private static final String C3P0_MAX_IDDLE_TIME    = "c3p0.maxIdleTime";
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
-    private static final String JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
+    //private static final String JDBC_QUERY2 = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
+    private static final String JDBC_QUERY3 = "SELECT usuario_id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, cat_edo_usuario_id FROM usuario";
     private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
-    private static final String SQL_DELETE = "DELETE FROM usuario WHERE correo=?";
+    private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario=?";
     private static final String SQL_INSERT = "insert into usuario(nombre, primer_apellido, usuario, contrasena, correo) values(?,?,?,?,?)";
 
     private static DatabaseConnector instance = null;
@@ -94,32 +95,38 @@ public class DatabaseConnector {
     public List<RemoteUser> getAllUsers() {
         List<RemoteUser> lista = new ArrayList<>();
         try (Connection        con   = dataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY);
+            PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY3);
             ResultSet         rs    = pstmt.executeQuery();) {
             while (rs.next()) {
+                // SELECT usuario_id, nombre, primer_apellido, segundo_apellido, 
+                // usuario, contrasena, correo, activo, interno, fecha_alta, cat_edo_usuario_id FROM usuario
+                //
+                // private static final String JDBC_QUERY = "
                 // id, nombre, primer_apellido, segundo_apellido,          1,2,3,4
                 // usuario, contrasena, correo,                            5,6,7
                 // activo, interno, fecha_alta, estatus                    8,9,10,11
-                String id = ""+rs.getInt(1);
-                String username = rs.getString(5);
-                String password = rs.getString(6);
-                String email = rs.getString(7);
-                String firstName = rs.getString(2);
-                String lastName = rs.getString(4);
+                //rs.getInt(columnLabel)
+                String id        = rs.getInt("usuario_id")+"";
+                String username  = rs.getString("usuario");
+                String password  = rs.getString("contrasena");
+                String email     = rs.getString("correo");
+                String firstName = rs.getString("primer_apellido");
+                String lastName  = rs.getString("segundo_apellido");
                lista.add(new RemoteUser(id, username, password, email, firstName, lastName));
             }
         } catch (SQLException e) {
             ManageProperties.prn(e.toString());
+            ManageProperties.prn(JDBC_QUERY3);
         }
         return lista;
     }
 
-    public void deleteUser(String email) {
+    public void deleteUser(String usuario) {
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement pstmt = con.prepareStatement(SQL_DELETE);
             ) {
-                pstmt.setString(1, email);
+                pstmt.setString(1, usuario);
                 pstmt.execute();
             } catch (SQLException e) {
                 ManageProperties.prn(e.toString());
