@@ -84,7 +84,7 @@ public class DigestEncoder  {
         StringBuilder hexString = new StringBuilder(number.toString(16));
 
         // Pad with leading zeros
-        while (hexString.length() < 32) {
+        while (hexString.length() < 64) { // 32 for MD5 & 64 for SHA256
             hexString.insert(0, '0');
         }
 
