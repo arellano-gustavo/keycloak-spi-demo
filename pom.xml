@@ -18,7 +18,27 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <keycloak.version>8.0.0</keycloak.version>
     </properties>
-    
+        <repositories>
+            <repository>
+                <id>nexus.ci.ultrasist.net</id>
+                <url>https://nexus.ci.ultrasist.net/repository/all/</url>
+                <name>Kebblar Repository</name>
+            </repository>
+        </repositories>
+        
+        <distributionManagement>
+            <repository>
+                <id>nexus.ci.ultrasist.net</id>
+                <url>https://nexus.ci.ultrasist.net/repository/ultra-mvn-artifacts/</url>
+                <name>Kebblar Repository</name>
+            </repository>
+            <snapshotRepository>
+                <id>nexus.ci.ultrasist.net</id>
+                <url>https://nexus.ci.ultrasist.net/repository/ultra-mvn-artifacts/</url>
+                <uniqueVersion>true</uniqueVersion>
+            </snapshotRepository>
+        </distributionManagement>
+        
     <dependencies>
         <dependency>
             <groupId>org.keycloak</groupId>
