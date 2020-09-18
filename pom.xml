@@ -19,27 +19,6 @@
         <keycloak.version>8.0.0</keycloak.version>
     </properties>
     
-    <repositories>
-        <repository>
-            <id>curso</id>
-            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/all/</url>
-            <name>Curso Repository</name>
-        </repository>
-    </repositories>
-    
-    <distributionManagement>
-        <repository>
-            <id>curso</id>
-            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/ultra-mvn-artifacts/</url>
-            <name>Curso Repository</name>
-        </repository>
-        <snapshotRepository>
-            <id>curso</id>
-            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/ultra-mvn-artifacts/</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.keycloak</groupId>
