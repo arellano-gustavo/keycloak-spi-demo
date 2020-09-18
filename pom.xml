@@ -18,6 +18,27 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <keycloak.version>8.0.0</keycloak.version>
     </properties>
+    
+    <repositories>
+        <repository>
+            <id>curso</id>
+            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/all/</url>
+            <name>Curso Repository</name>
+        </repository>
+    </repositories>
+    
+    <distributionManagement>
+        <repository>
+            <id>curso</id>
+            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/ultra-mvn-artifacts/</url>
+            <name>Curso Repository</name>
+        </repository>
+        <snapshotRepository>
+            <id>curso</id>
+            <url>https://nexus.ingenieriadesoftwareciencias.mx/repository/ultra-mvn-artifacts/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -32,16 +53,16 @@
             <version>${keycloak.version}</version>
             <scope>provided</scope>
         </dependency>
-<!--         <dependency> -->
-<!--             <groupId>com.h2database</groupId> -->
-<!--             <artifactId>h2</artifactId> -->
-<!--             <version>1.4.194</version> -->
-<!--         </dependency> -->
-<!--         <dependency> -->
-<!--             <groupId>org.mariadb.jdbc</groupId> -->
-<!--             <artifactId>mariadb-java-client</artifactId> -->
-<!--             <version>2.6.0</version> -->
-<!--         </dependency> -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.194</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.6.0</version>
+        </dependency>
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
