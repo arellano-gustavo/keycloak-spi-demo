@@ -46,7 +46,7 @@ class UserRepository {
             prn("Se encontraron: " + users.size() + " usuarios en el sistema.");
         }
         for(RemoteUser du : users) {
-            prn("probando usuario: " + username + " contra: "+ du.toString());
+            // prn("probando usuario: " + username + " contra: "+ du.toString());
             if(du.getUsername().equals(username)) { // || du.getEmail().equalsIgnoreCase(username)) {
                 prn("usuario "+username+" encontrado !!!!");
                 return du;
