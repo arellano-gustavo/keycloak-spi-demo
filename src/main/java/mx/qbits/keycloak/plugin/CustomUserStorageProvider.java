@@ -54,13 +54,10 @@ public class CustomUserStorageProvider implements
 
     @Override
     public boolean isValid(RealmModel realm, UserModel user, CredentialInput input) {
-        System.out.println("*********** Chandra: " + user.getUsername());
-        System.out.println("*********** Chandra: " + user.getEmail());
         if (!supportsCredentialType(input.getType()) || !(input instanceof UserCredentialModel)) {
             return false;
         }
         UserCredentialModel cred = (UserCredentialModel) input;
-        System.out.println("*********** Chandra: " + cred.getChallengeResponse());
         return repository.validateCredentials(user.getUsername(), cred.getChallengeResponse());
     }
 

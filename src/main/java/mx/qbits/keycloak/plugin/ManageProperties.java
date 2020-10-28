@@ -6,10 +6,12 @@ import java.util.Properties;
 import java.util.Set;
 
 public class ManageProperties {
+    private String perfil = "cinepolis"; /** CAMBIAR SEGUN CORRESPONDA **/
 
     private static ManageProperties instance = null;
     private Properties properties = new Properties();
-
+    private Properties connProperties = new Properties();
+    
     public static ManageProperties getInstance() {
         if(instance==null) {
             instance = new ManageProperties();
@@ -17,7 +19,7 @@ public class ManageProperties {
         return instance;
     }
     
-    private void printInfo() {
+    private void printInfo(Properties properties) {
         Set<Object> propKeySet = properties.keySet();
         for(Object propertyKey : propKeySet) {
             String propValue = properties.getProperty(propertyKey.toString());
@@ -30,15 +32,19 @@ public class ManageProperties {
     private ManageProperties() {
         try {
             InputStream fis = ManageProperties.class.getClassLoader().getResourceAsStream("database.properties");
+            InputStream connFis = ManageProperties.class.getClassLoader().getResourceAsStream("conn.properties");
+            
             properties.load(fis);
-            this.printInfo();
+            connProperties.load(connFis);
+            this.printInfo(properties);
+            this.printInfo(connProperties);
         } catch (IOException e) {
             prn(e.getMessage());
         }
     }
     
     public String getStrPropertyValue(String name) {
-        String var = System.getenv(name);
+        String var = connProperties.getProperty(perfil + "." + name);
         if(var!=null) {
             ManageProperties.prn("Usando variable de ambiente "+name+" con valor:"+var);
             return var;
