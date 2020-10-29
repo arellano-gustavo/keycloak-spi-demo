@@ -108,7 +108,7 @@ public class DatabaseConnector {
                 // usuario, contrasena, correo,                            5,6,7
                 // activo, interno, fecha_alta, estatus                    8,9,10,11
                 //rs.getInt(columnLabel)
-                String id        = rs.getInt("usuario_id")+"";
+                String id        = rs.getInt(0)+"";
                 String username  = rs.getString("usuario");
                 String password  = rs.getString("contrasena");
                 String email     = rs.getString("correo");
