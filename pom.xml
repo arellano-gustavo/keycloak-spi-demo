@@ -8,7 +8,7 @@
     
     <!-- OJO !!! CAMBIAR: auth-provider-cinepolis POR: auth-provider-xyz SEGÚN SE NECESITE-->
     <artifactId>auth-provider-cinepolis</artifactId>
-    <!--  y linea 9 de ManageProperties -->
+    <!--  y linea 1 de conn.properties -->
     <!-- FIN DE COMENTARIO -->
     
     <version>1.0-SNAPSHOT</version>

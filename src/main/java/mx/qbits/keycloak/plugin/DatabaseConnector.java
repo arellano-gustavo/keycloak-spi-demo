@@ -26,8 +26,6 @@ public class DatabaseConnector {
     private static final String C3P0_MAX_IDDLE_TIME    = "c3p0.maxIdleTime";
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
-    //private static final String JDBC_QUERY2 = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
-    //private static final String JDBC_QUERY3 = "";
     private static final String JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
     private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario=?";
@@ -108,7 +106,7 @@ public class DatabaseConnector {
                 // usuario, contrasena, correo,                            5,6,7
                 // activo, interno, fecha_alta, estatus                    8,9,10,11
                 //rs.getInt(columnLabel)
-                String id        = rs.getInt(1)+"";
+                String id        = rs.getInt(1)+""; // es numero porque aveces el ID cambia
                 String username  = rs.getString("usuario");
                 String password  = rs.getString("contrasena");
                 String email     = rs.getString("correo");
