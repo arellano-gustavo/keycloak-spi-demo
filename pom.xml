@@ -53,6 +53,8 @@
             <version>${keycloak.version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!--
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -70,6 +72,13 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>2.6.0</version>
         </dependency>
+        -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.20</version>
+        </dependency>
+        
 
         <dependency>
             <groupId>com.mchange</groupId>
@@ -79,39 +88,29 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <finalName>${project.artifactId}-fat</finalName>
-                    <!-- get all project dependencies -->
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                   <appendAssemblyId>false</appendAssemblyId>
-                    <!-- MainClass in mainfest make a executable jar -->
-                    <archive>
-                      <manifest>
-                        <mainClass>mx.qbits.keycloak.plugin.ManageProperties</mainClass>
-                      </manifest>
-                    </archive>
-
-                </configuration>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
                 <executions>
-                  <execution>
-                    <id>make-assembly</id>
-                                        <!-- bind to the packaging phase -->
-                    <phase>package</phase> 
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                  </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}-${project.version}-fat</finalName>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
