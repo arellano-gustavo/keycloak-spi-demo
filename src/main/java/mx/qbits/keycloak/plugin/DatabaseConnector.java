@@ -11,6 +11,10 @@ import java.util.List;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class DatabaseConnector {
+    private static DatabaseConnector instance = null;
+    private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
+    private static ManageProperties mp = ManageProperties.getInstance();
+
     public static final String DB_USERNAME     = "db.username";
     public static final String DB_PASSWORD     = "db.password";
     public static final String DB_URL          = "db.url";
@@ -23,14 +27,12 @@ public class DatabaseConnector {
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
     //private static final String JDBC_QUERY2 = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
-    private static final String JDBC_QUERY3 = "SELECT usuario_id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, cat_edo_usuario_id FROM usuario";
+    //private static final String JDBC_QUERY3 = "";
+    private static final String JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
     private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario=?";
     private static final String SQL_INSERT = "insert into usuario(nombre, primer_apellido, usuario, contrasena, correo) values(?,?,?,?,?)";
 
-    private static DatabaseConnector instance = null;
-    private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
-    private ManageProperties mp = ManageProperties.getInstance();
 
     public static DatabaseConnector getInstance() {
         if(instance==null) {
@@ -95,7 +97,7 @@ public class DatabaseConnector {
     public List<RemoteUser> getAllUsers() {
         List<RemoteUser> lista = new ArrayList<>();
         try (Connection        con   = dataSource.getConnection();
-            PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY3);
+            PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY);
             ResultSet         rs    = pstmt.executeQuery();) {
             while (rs.next()) {
                 // SELECT usuario_id, nombre, primer_apellido, segundo_apellido, 
@@ -116,7 +118,7 @@ public class DatabaseConnector {
             }
         } catch (SQLException e) {
             ManageProperties.prn(e.toString());
-            ManageProperties.prn(JDBC_QUERY3);
+            ManageProperties.prn(JDBC_QUERY);
         }
         return lista;
     }
