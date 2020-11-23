@@ -22,7 +22,7 @@
         <repositories>
             <repository>
                 <id>nexus.ci.ultrasist.net</id>
-                <url>https://nexus.ci.ultrasist.net/repository/all/</url>
+                <url>http://nexus.ci.ultrasist.net/repository/all/</url>
                 <name>Kebblar Repository</name>
             </repository>
         </repositories>
