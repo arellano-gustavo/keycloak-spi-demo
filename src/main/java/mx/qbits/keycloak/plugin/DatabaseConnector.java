@@ -65,11 +65,11 @@ public class DatabaseConnector {
         Connection con = null;
         try {
         	con = dataSource.getConnection();
-        	System.out.println("Successful first connection:" + JDBC_QUERY); 
+        	System.out.println("xxx Successful first connection:" + JDBC_QUERY); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("Finishing first connection:" + con.toString()); 
+			System.out.println("xxx Finishing first connection:" + con.toString()); 
 		}
     }
     
