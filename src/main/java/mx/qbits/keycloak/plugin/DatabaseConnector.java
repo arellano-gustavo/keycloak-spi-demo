@@ -61,6 +61,7 @@ public class DatabaseConnector {
         
         JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
         System.out.println("------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
+        mp.prn("------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
         Connection con = null;
         try {
         	con = dataSource.getConnection();
