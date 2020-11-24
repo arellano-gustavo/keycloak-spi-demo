@@ -26,7 +26,9 @@ public class DatabaseConnector {
     private static final String C3P0_MAX_IDDLE_TIME    = "c3p0.maxIdleTime";
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
-    private static String JDBC_QUERY = "select * from usuario";//mp.getStrPropertyValue("jdbc.query");
+    //private static String JDBC_QUERY = "select * from usuario";//mp.getStrPropertyValue("jdbc.query");
+    private static final String JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
+
     private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario=?";
     private static final String SQL_INSERT = "insert into usuario(nombre, primer_apellido, usuario, contrasena, correo) values(?,?,?,?,?)";
@@ -43,8 +45,6 @@ public class DatabaseConnector {
         return instance;
     }
     
-
-    
     private DatabaseConnector() throws PropertyVetoException {
         dataSource.setDriverClass(mp.getStrPropertyValue(DB_DRIVER_CLASS));
         dataSource.setJdbcUrl(mp.getStrPropertyValue(DB_URL));
@@ -59,24 +59,16 @@ public class DatabaseConnector {
         dataSource.setMaxIdleTime(mp.getIntPropertyValue(C3P0_MAX_IDDLE_TIME, 600)); // 10 minutos
         dataSource.setIdleConnectionTestPeriod(mp.getIntPropertyValue(C3P0_IDLE_CONNECTION_TEST_PERIOD, 300)); // 5 minutos
         
-        //
-        //JDBC_QUERY = ManageProperties.getInstance().getStrPropertyValue("prod.microcreditos.jdbc.query");
-        //JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
-        //System.out.println("1------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
-        //mp.prn("2------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
-        JDBC_QUERY = "SELECT id, nombre, primer_apellido, segundo_apellido, usuario, contrasena, correo, activo, interno, fecha_alta, estatus FROM usuario";
         Connection con = null;
         try {
         	con = dataSource.getConnection();
-        	System.out.println("xxx Successful first connection:" + JDBC_QUERY); 
+        	System.out.println("Successful first connection:" + JDBC_QUERY); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			System.out.println("xxx Finishing first connection:" + con.toString()); 
+			System.out.println("Finishing first connection:" + con.toString()); 
 		}
     }
-    
-    
 
     public boolean updateCredentials(String username, String password) {
         try (
@@ -94,11 +86,14 @@ public class DatabaseConnector {
     }
 
     public List<RemoteUser> getAllUsers() {
+    	long counter = 0;
+    	ManageProperties.prn("Obteniendo lista de usuarios...");
         List<RemoteUser> lista = new ArrayList<>();
         try (Connection        con   = dataSource.getConnection();
             PreparedStatement pstmt = con.prepareStatement(JDBC_QUERY);
             ResultSet         rs    = pstmt.executeQuery();) {
             while (rs.next()) {
+            	counter++;
                 // SELECT usuario_id, nombre, primer_apellido, segundo_apellido, 
                 // usuario, contrasena, correo, activo, interno, fecha_alta, cat_edo_usuario_id FROM usuario
                 //
@@ -119,6 +114,7 @@ public class DatabaseConnector {
             ManageProperties.prn(e.toString());
             ManageProperties.prn(JDBC_QUERY);
         }
+        ManageProperties.prn("Numero total de usuarios: "+counter);
         return lista;
     }
 

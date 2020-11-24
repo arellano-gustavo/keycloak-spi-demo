@@ -57,11 +57,11 @@ public class ManageProperties {
     	}
         String var = connProperties.getProperty(this.perfil + "." + name);
         if(var!=null) {
-            ManageProperties.prn("A Usando variable de ambiente "+name+" con valor:"+var);
+            ManageProperties.prn("Usando variable de ambiente "+name+" con valor:"+var);
             return var;
         }
         var = properties.getProperty(name);
-        ManageProperties.prn("B Usando parametro de propiedades "+name+" con valor:"+var);
+        ManageProperties.prn("Usando parametro de propiedades "+name+" con valor:"+var);
         return var;
     }
 
