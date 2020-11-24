@@ -26,7 +26,7 @@ public class DatabaseConnector {
     private static final String C3P0_MAX_IDDLE_TIME    = "c3p0.maxIdleTime";
     private static final String C3P0_IDLE_CONNECTION_TEST_PERIOD = "c3p0.idleConnectionTestPeriod";
     
-    private static String JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
+    private static String JDBC_QUERY = "select * from usuario";//mp.getStrPropertyValue("jdbc.query");
     private static final String SQL_UPDATE = "UPDATE usuario SET contrasena=? WHERE username=?";
     private static final String SQL_DELETE = "DELETE FROM usuario WHERE usuario=?";
     private static final String SQL_INSERT = "insert into usuario(nombre, primer_apellido, usuario, contrasena, correo) values(?,?,?,?,?)";
