@@ -59,9 +59,11 @@ public class DatabaseConnector {
         dataSource.setMaxIdleTime(mp.getIntPropertyValue(C3P0_MAX_IDDLE_TIME, 600)); // 10 minutos
         dataSource.setIdleConnectionTestPeriod(mp.getIntPropertyValue(C3P0_IDLE_CONNECTION_TEST_PERIOD, 300)); // 5 minutos
         
-        JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
-        System.out.println("------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
-        mp.prn("------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
+        //
+        JDBC_QUERY = ManageProperties.getInstance().getStrPropertyValue("prod.microcreditos.jdbc.query");
+        //JDBC_QUERY = mp.getStrPropertyValue("jdbc.query");
+        System.out.println("1------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
+        mp.prn("2------------>>>>>>>>>>>>>>>>>>>>>>>>>>"+JDBC_QUERY);
         Connection con = null;
         try {
         	con = dataSource.getConnection();
