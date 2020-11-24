@@ -19,6 +19,10 @@ public class ManageProperties {
     }
     
     private void printInfo(Properties properties) {
+    	prn("****************************************************************");
+    	prn("****************************************************************");
+    	prn("****************************************************************");
+    	
         Set<Object> propKeySet = properties.keySet();
         for(Object propertyKey : propKeySet) {
             String propValue = properties.getProperty(propertyKey.toString());
@@ -46,9 +50,13 @@ public class ManageProperties {
     }
     
     public String getStrPropertyValue(String name) {
+    	if(this.perfil==null && this.perfil.trim().equals("")) {
+    		ManageProperties.prn("El perfil actual es NULO");
+    	} else {
+    		ManageProperties.prn("Perfil:[[["+this.perfil+"]]]");
+    	}
         String var = connProperties.getProperty(this.perfil + "." + name);
         if(var!=null) {
-        	ManageProperties.prn("Perfil:[[["+this.perfil+"]]]");
             ManageProperties.prn("A Usando variable de ambiente "+name+" con valor:"+var);
             return var;
         }
