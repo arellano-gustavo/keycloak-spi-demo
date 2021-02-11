@@ -7,7 +7,7 @@
     <groupId>mx.qbits.keycloak.plugin</groupId>
     
     <!-- OJO !!! CAMBIAR: auth-provider-cinepolis POR: auth-provider-xyz SEGÚN SE NECESITE-->
-    <artifactId>auth-provider-prod-microcreditos</artifactId>
+    <artifactId>auth-provider-qa-microcreditos</artifactId>
     <!--  y linea 1 de conn.properties -->
     <!-- FIN DE COMENTARIO -->
     
